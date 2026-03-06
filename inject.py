@@ -75,7 +75,9 @@ def run():
     if not cookies:
         print("[!] No cookies found for this domain.")
         return
-
+        
+    driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+    
     driver = configure_driver(headless=False)
     driver.get(url)
     time.sleep(3)
