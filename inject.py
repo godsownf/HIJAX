@@ -27,6 +27,19 @@ def configure_driver(headless=False):
     options.add_argument('--proxy-server=http://your_proxy_here')
     return uc.Chrome(options=options)
 
+def initialize_driver():
+    driver = configure_driver(headless=False)
+    stealth(
+        driver,
+        languages=["en-US", "en"],
+        vendor="Google Inc.",
+        platform="Win32",
+        webgl_vendor="Intel Inc.",
+        renderer="Intel Iris OpenGL",
+        fix_hairline=True,
+    )
+    return driver
+
 def human_delay(min_sec=1, max_sec=3):
     time.sleep(random.uniform(min_sec, max_sec))
 
@@ -78,7 +91,7 @@ def run():
         print("[!] No cookies found for this domain.")
         return
         
-    driver = configure_driver(headless=False)
+    driver = initialize_driver()
     driver.get(url)
     human_delay(3)
     inject_cookies(driver, cookies, domain)
