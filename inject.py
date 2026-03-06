@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium_stealth import stealth
+from selenium.webdriver.common.action_chains import ActionChains
 import undetected_chromedriver as uc
 
 # Constants
@@ -25,6 +26,10 @@ def configure_driver(headless=False):
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36")
     options.add_argument('--proxy-server=http://your_proxy_here')
+    ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+Chrome/119.0.0.0 Safari/537.36"
+    options.add_argument(f'--user-agent={ua}')
+
     return uc.Chrome(options=options)
 
 def initialize_driver():
@@ -40,8 +45,13 @@ def initialize_driver():
     )
     return driver
 
+def execute_script("window.scrollTo(0, document.body.scrollHeight/2);")
 def human_delay(min_sec=1, max_sec=3):
     time.sleep(random.uniform(min_sec, max_sec))
+
+action = ActionChains(driver)
+action.move_by_offset(100, 100).perform()  # move mouse
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
 def choose_target():
     print("\n[🎯] Choose a target to inject:")
